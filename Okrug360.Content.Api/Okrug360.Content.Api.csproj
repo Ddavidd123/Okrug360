@@ -22,13 +22,9 @@
   <ItemGroup>
     <Folder Include="Configuration\" />
     <Folder Include="Contracts\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Extensions\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

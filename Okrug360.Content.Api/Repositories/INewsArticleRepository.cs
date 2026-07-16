@@ -1,0 +1,18 @@
+﻿using Okrug360.Content.Api.Entities;
+
+
+namespace Okrug360.Content.Api.Repositories;
+
+public interface INewsArticleRepository
+{
+    Task<IReadOnlyList<NewsArticle>> GetAllAsync(
+        CancellationToken cancellationToken);
+
+    Task<NewsArticle?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken);
+
+    Task AddAsync(
+        NewsArticle article,
+        CancellationToken cancellationToken);
+}

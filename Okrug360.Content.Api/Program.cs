@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Okrug360.Content.Api.Data;
+using Okrug360.Content.Api.Repositories;
+using Okrug360.Content.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ var connectionString =
 
 builder.Services.AddDbContext<ContentDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<INewsArticleRepository, NewsArticleRepository>();
+builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 
 // Add services to the container.
 

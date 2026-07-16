@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Okrug360.Content.Api.Enttities;
+using Okrug360.Content.Api.Entities;
 using System.Collections.Generic;
 
 namespace Okrug360.Content.Api.Data;

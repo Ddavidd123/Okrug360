@@ -1,4 +1,4 @@
-﻿namespace Okrug360.Content.Api.Enttities
+﻿namespace Okrug360.Content.Api.Entities
 {
     public class NewsArticle
     {
