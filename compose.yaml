@@ -1,0 +1,19 @@
+name: okrug360
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: okrug360-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+    ports:
+      - "${MSSQL_PORT:-1435}:1433"
+    volumes:
+      - okrug360-sql-data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  okrug360-sql-data:
+    

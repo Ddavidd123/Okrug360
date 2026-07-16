@@ -1,4 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Okrug360.Content.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString =
+    builder.Configuration.GetConnectionString("ContentDatabase")
+    ?? throw new InvalidOperationException(
+        "Connection string 'ContentDatabase' nije podesen.");
+
+builder.Services.AddDbContext<ContentDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
