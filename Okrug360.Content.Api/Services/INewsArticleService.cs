@@ -1,18 +1,17 @@
 ﻿using Okrug360.Content.Api.Dtos;
-using Okrug360.Content.Api.Entities;
 
 namespace Okrug360.Content.Api.Services;
 
 public interface INewsArticleService
 {
-    Task<IReadOnlyList<NewsArticle>> GetAllAsync(
+    Task<IReadOnlyList<NewsArticleResponse>> GetAllAsync(
         CancellationToken cancellationToken);
 
-    Task<NewsArticle?> GetByIdAsync(
+    Task<NewsArticleResponse?> GetByIdAsync(
         Guid id,
         CancellationToken cancellationToken);
 
-    Task<NewsArticle> CreateAsync(
+    Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken);
 }

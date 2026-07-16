@@ -1,6 +1,6 @@
 ﻿using Okrug360.Content.Api.Dtos;
 using Okrug360.Content.Api.Entities;
-
+using Okrug360.Content.Api.Mappings;
 using Okrug360.Content.Api.Repositories;
 
 namespace Okrug360.Content.Api.Services;
@@ -14,20 +14,24 @@ public sealed class NewsArticleService : INewsArticleService
         _repository = repository;
     }
 
-    public Task<IReadOnlyList<NewsArticle>> GetAllAsync(
+    public async Task<IReadOnlyList<NewsArticleResponse>> GetAllAsync(
         CancellationToken cancellationToken)
     {
-        return _repository.GetAllAsync(cancellationToken);
+        var articles = await _repository.GetAllAsync(cancellationToken);
+
+        return articles.ToResponseList();
     }
 
-    public Task<NewsArticle?> GetByIdAsync(
+    public async Task<NewsArticleResponse?> GetByIdAsync(
         Guid id,
         CancellationToken cancellationToken)
     {
-        return _repository.GetByIdAsync(id, cancellationToken);
+        var article = await _repository.GetByIdAsync(id, cancellationToken);
+
+        return article?.ToResponse();
     }
 
-    public async Task<NewsArticle> CreateAsync(
+    public async Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken)
     {
@@ -46,6 +50,6 @@ public sealed class NewsArticleService : INewsArticleService
 
         await _repository.AddAsync(article, cancellationToken);
 
-        return article;
+        return article.ToResponse();
     }
 }

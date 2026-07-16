@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Okrug360.Content.Api.Dtos;
-
-using Okrug360.Content.Api.Entities;
 using Okrug360.Content.Api.Services;
 
 namespace Okrug360.Content.Api.Controllers;
@@ -18,7 +16,7 @@ public sealed class NewsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<NewsArticle>>> GetAll(
+    public async Task<ActionResult<IReadOnlyList<NewsArticleResponse>>> GetAll(
         CancellationToken cancellationToken)
     {
         var articles = await _service.GetAllAsync(cancellationToken);
@@ -27,7 +25,7 @@ public sealed class NewsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<NewsArticle>> GetById(
+    public async Task<ActionResult<NewsArticleResponse>> GetById(
         Guid id,
         CancellationToken cancellationToken)
     {
@@ -44,7 +42,7 @@ public sealed class NewsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<NewsArticle>> Create(
+    public async Task<ActionResult<NewsArticleResponse>> Create(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken)
     {
