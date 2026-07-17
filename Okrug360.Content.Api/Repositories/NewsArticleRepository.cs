@@ -13,22 +13,11 @@ public sealed class NewsArticleRepository : INewsArticleRepository
         _dbContext = dbContext;
     }
 
-    //cancellation token se koristi zbog stednje resursa
-    //akko korisnik zatvori stranicu, asp net - prekini izvrsavanje
-    public async Task<IReadOnlyList<NewsArticle>> GetPublishedAsync(
-        CancellationToken cancellationToken)
-    {
-        return await _dbContext.NewsArticles
-            .AsNoTracking()
-            .Where(x => x.IsPublished)
-            .OrderByDescending(x => x.PublishedAt)
-            .ToListAsync(cancellationToken);
-    }
-
+    // CancellationToken: ako korisnik zatvori zahtev, ASP.NET može da prekine izvršavanje.
     public async Task<(IReadOnlyList<NewsArticle> Items, int TotalCount)> GetPublishedAsync(
-      int page,
-      int pageSize,
-      CancellationToken cancellationToken)
+        int page,
+        int pageSize,
+        CancellationToken cancellationToken)
     {
         var query = _dbContext.NewsArticles
             .AsNoTracking()
@@ -45,9 +34,20 @@ public sealed class NewsArticleRepository : INewsArticleRepository
         return (items, totalCount);
     }
 
+    public async Task<NewsArticle?> GetPublishedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        return await _dbContext.NewsArticles
+            .AsNoTracking()
+            .FirstOrDefaultAsync(
+                x => x.Id == id && x.IsPublished,
+                cancellationToken);
+    }
+
     public async Task<NewsArticle?> GetByIdAsync(
-       Guid id,
-       CancellationToken cancellationToken)
+        Guid id,
+        CancellationToken cancellationToken)
     {
         return await _dbContext.NewsArticles
             .FirstOrDefaultAsync(

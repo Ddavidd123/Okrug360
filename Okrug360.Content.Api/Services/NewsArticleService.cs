@@ -14,18 +14,10 @@ public sealed class NewsArticleService : INewsArticleService
         _repository = repository;
     }
 
-    public async Task<IReadOnlyList<NewsArticleResponse>> GetPublishedAsync(
-        CancellationToken cancellationToken)
-    {
-        var articles = await _repository.GetPublishedAsync(cancellationToken);
-
-        return articles.ToResponseList();
-    }
-
     public async Task<PagedNewsArticlesResponse> GetPublishedAsync(
-     int page,
-     int pageSize,
-     CancellationToken cancellationToken)
+        int page,
+        int pageSize,
+        CancellationToken cancellationToken)
     {
         if (page < 1)
         {
@@ -61,6 +53,17 @@ public sealed class NewsArticleService : INewsArticleService
         };
     }
 
+    public async Task<NewsArticleResponse?> GetPublishedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var article = await _repository.GetPublishedByIdAsync(
+            id,
+            cancellationToken);
+
+        return article?.ToResponse();
+    }
+
     public async Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken)
@@ -78,17 +81,15 @@ public sealed class NewsArticleService : INewsArticleService
             IsPublished = request.PublishImmediately
         };
 
-
-
         await _repository.AddAsync(article, cancellationToken);
 
         return article.ToResponse();
     }
 
     public async Task<NewsArticleResponse?> UpdateAsync(
-    Guid id,
-    UpdateNewsArticleRequest request,
-    CancellationToken cancellationToken)
+        Guid id,
+        UpdateNewsArticleRequest request,
+        CancellationToken cancellationToken)
     {
         var article = await _repository.GetByIdAsync(
             id,
@@ -109,8 +110,8 @@ public sealed class NewsArticleService : INewsArticleService
     }
 
     public async Task<bool> DeleteAsync(
-    Guid id,
-    CancellationToken cancellationToken)
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var article = await _repository.GetByIdAsync(
             id,
@@ -137,22 +138,22 @@ public sealed class NewsArticleService : INewsArticleService
         if (article is null)
         {
             return null;
-
         }
 
-        if(!article.IsPublished)
+        if (!article.IsPublished)
         {
             article.IsPublished = true;
             article.PublishedAt = DateTime.UtcNow;
 
             await _repository.UpdateAsync(article, cancellationToken);
-
         }
+
         return article.ToResponse();
     }
+
     public async Task<NewsArticleResponse?> ArchiveAsync(
-      Guid id,
-      CancellationToken cancellationToken)
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var article = await _repository.GetByIdAsync(
             id,
@@ -171,5 +172,4 @@ public sealed class NewsArticleService : INewsArticleService
 
         return article.ToResponse();
     }
-
 }

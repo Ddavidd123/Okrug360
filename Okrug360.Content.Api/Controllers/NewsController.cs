@@ -16,19 +16,10 @@ public sealed class NewsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<NewsArticleResponse>>> GetPublished(
-        CancellationToken cancellationToken)
-    {
-        var articles = await _service.GetPublishedAsync(cancellationToken);
-
-        return Ok(articles);
-    }
-
-    [HttpGet]
     public async Task<ActionResult<PagedNewsArticlesResponse>> GetPublished(
-    [FromQuery] int page = 1,
-    [FromQuery] int pageSize = 10,
-    CancellationToken cancellationToken = default)
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken = default)
     {
         var result = await _service.GetPublishedAsync(
             page,
@@ -36,6 +27,23 @@ public sealed class NewsController : ControllerBase
             cancellationToken);
 
         return Ok(result);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<NewsArticleResponse>> GetPublishedById(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var article = await _service.GetPublishedByIdAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(article);
     }
 
     [HttpPost]

@@ -4,13 +4,14 @@ namespace Okrug360.Content.Api.Repositories;
 
 public interface INewsArticleRepository
 {
-    Task<IReadOnlyList<NewsArticle>> GetPublishedAsync(
+    Task<(IReadOnlyList<NewsArticle> Items, int TotalCount)> GetPublishedAsync(
+        int page,
+        int pageSize,
         CancellationToken cancellationToken);
 
-    Task<(IReadOnlyList<NewsArticle> Items, int TotalCount)> GetPublishedAsync(
-    int page,
-    int pageSize,
-    CancellationToken cancellationToken);
+    Task<NewsArticle?> GetPublishedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken);
 
     Task<NewsArticle?> GetByIdAsync(
         Guid id,

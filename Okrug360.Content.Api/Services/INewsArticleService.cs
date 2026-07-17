@@ -4,30 +4,31 @@ namespace Okrug360.Content.Api.Services;
 
 public interface INewsArticleService
 {
-    Task<IReadOnlyList<NewsArticleResponse>> GetPublishedAsync(
+    Task<PagedNewsArticlesResponse> GetPublishedAsync(
+        int page,
+        int pageSize,
         CancellationToken cancellationToken);
 
-    Task<PagedNewsArticlesResponse> GetPublishedAsync(
-    int page,
-    int pageSize,
-    CancellationToken cancellationToken);
+    Task<NewsArticleResponse?> GetPublishedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken);
 
     Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken);
 
     Task<NewsArticleResponse?> UpdateAsync(
-       Guid id,
-       UpdateNewsArticleRequest request,
-       CancellationToken cancellationToken);
+        Guid id,
+        UpdateNewsArticleRequest request,
+        CancellationToken cancellationToken);
 
     Task<bool> DeleteAsync(
         Guid id,
         CancellationToken cancellationToken);
 
     Task<NewsArticleResponse?> PublishAsync(
-    Guid id,
-    CancellationToken cancellationToken);
+        Guid id,
+        CancellationToken cancellationToken);
 
     Task<NewsArticleResponse?> ArchiveAsync(
         Guid id,
