@@ -91,4 +91,21 @@ public sealed class NewsController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("{id:guid}/publish")]
+    public async Task<ActionResult<NewsArticleResponse>> Publish(
+    Guid id,
+    CancellationToken cancellationToken)
+    {
+        var article = await _service.PublishAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(article);
+    }
 }
