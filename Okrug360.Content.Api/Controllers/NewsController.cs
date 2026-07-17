@@ -74,4 +74,21 @@ public sealed class NewsController : ControllerBase
 
         return Ok(article);
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+    Guid id,
+    CancellationToken cancellationToken)
+    {
+        var deleted = await _service.DeleteAsync(
+            id,
+            cancellationToken);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }

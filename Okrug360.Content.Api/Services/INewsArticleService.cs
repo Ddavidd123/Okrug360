@@ -19,4 +19,8 @@ public interface INewsArticleService
        Guid id,
        UpdateNewsArticleRequest request,
        CancellationToken cancellationToken);
+
+    Task<bool> DeleteAsync(
+        Guid id,
+        CancellationToken cancellationToken);
 }

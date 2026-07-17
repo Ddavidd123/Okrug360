@@ -80,5 +80,23 @@ public sealed class NewsArticleService : INewsArticleService
         return article.ToResponse();
     }
 
+    public async Task<bool> DeleteAsync(
+    Guid id,
+    CancellationToken cancellationToken)
+    {
+        var article = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return false;
+        }
+
+        await _repository.DeleteAsync(article, cancellationToken);
+
+        return true;
+    }
+
 
 }

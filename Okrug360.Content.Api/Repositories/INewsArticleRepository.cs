@@ -22,4 +22,8 @@ public interface INewsArticleRepository
     Task UpdateAsync(
         NewsArticle article,
         CancellationToken cancellationToken);
+
+    Task DeleteAsync(
+        NewsArticle article,
+        CancellationToken cancellationToken);
 }

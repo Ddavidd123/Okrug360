@@ -61,4 +61,12 @@ public sealed class NewsArticleRepository : INewsArticleRepository
         _dbContext.NewsArticles.Update(article);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task DeleteAsync(
+        NewsArticle article,
+        CancellationToken cancellationToken)
+    {
+        _dbContext.NewsArticles.Remove(article);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }
