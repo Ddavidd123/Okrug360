@@ -11,7 +11,15 @@ public interface INewsArticleRepository
         Guid id,
         CancellationToken cancellationToken);
 
+    Task<NewsArticle?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken);
+
     Task AddAsync(
+        NewsArticle article,
+        CancellationToken cancellationToken);
+
+    Task UpdateAsync(
         NewsArticle article,
         CancellationToken cancellationToken);
 }

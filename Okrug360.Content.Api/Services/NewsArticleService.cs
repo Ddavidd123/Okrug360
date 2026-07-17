@@ -50,8 +50,35 @@ public sealed class NewsArticleService : INewsArticleService
             IsPublished = request.PublishImmediately
         };
 
+
+
         await _repository.AddAsync(article, cancellationToken);
 
         return article.ToResponse();
     }
+
+    public async Task<NewsArticleResponse?> UpdateAsync(
+    Guid id,
+    UpdateNewsArticleRequest request,
+    CancellationToken cancellationToken)
+    {
+        var article = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return null;
+        }
+
+        article.Title = request.Title.Trim();
+        article.Summary = request.Summary.Trim();
+        article.Content = request.Content.Trim();
+
+        await _repository.UpdateAsync(article, cancellationToken);
+
+        return article.ToResponse();
+    }
+
+
 }

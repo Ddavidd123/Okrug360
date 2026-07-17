@@ -55,4 +55,23 @@ public sealed class NewsController : ControllerBase
             new { id = article.Id },
             article);
     }
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<NewsArticleResponse>> Update(
+    Guid id,
+    UpdateNewsArticleRequest request,
+    CancellationToken cancellationToken)
+    {
+        var article = await _service.UpdateAsync(
+            id,
+            request,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(article);
+    }
 }

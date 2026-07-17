@@ -14,4 +14,9 @@ public interface INewsArticleService
     Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,
         CancellationToken cancellationToken);
+
+    Task<NewsArticleResponse?> UpdateAsync(
+       Guid id,
+       UpdateNewsArticleRequest request,
+       CancellationToken cancellationToken);
 }

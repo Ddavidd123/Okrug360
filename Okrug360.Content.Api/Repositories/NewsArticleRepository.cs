@@ -36,11 +36,29 @@ public sealed class NewsArticleRepository : INewsArticleRepository
                 cancellationToken);
     }
 
+    public async Task<NewsArticle?> GetByIdAsync(
+       Guid id,
+       CancellationToken cancellationToken)
+    {
+        return await _dbContext.NewsArticles
+            .FirstOrDefaultAsync(
+                x => x.Id == id,
+                cancellationToken);
+    }
+
     public async Task AddAsync(
         NewsArticle article,
         CancellationToken cancellationToken)
     {
         _dbContext.NewsArticles.Add(article);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(
+        NewsArticle article,
+        CancellationToken cancellationToken)
+    {
+        _dbContext.NewsArticles.Update(article);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
