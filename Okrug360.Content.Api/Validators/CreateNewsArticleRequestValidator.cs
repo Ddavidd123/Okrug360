@@ -13,7 +13,7 @@ namespace Okrug360.Content.Api.Validators
 
             RuleFor(x => x.Summary)
                 .NotEmpty().WithMessage("Summary is required.")
-                .MaximumLength(500).WithMessage("Title must be at 500 charcters");
+                .MaximumLength(500).WithMessage("Summary must be at 500 characters");
 
             RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.")
