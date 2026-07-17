@@ -24,21 +24,18 @@ public sealed class NewsController : ControllerBase
         return Ok(articles);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<NewsArticleResponse>> GetPublishedById(
-        Guid id,
-        CancellationToken cancellationToken)
+    [HttpGet]
+    public async Task<ActionResult<PagedNewsArticlesResponse>> GetPublished(
+    [FromQuery] int page = 1,
+    [FromQuery] int pageSize = 10,
+    CancellationToken cancellationToken = default)
     {
-        var article = await _service.GetPublishedByIdAsync(
-            id,
+        var result = await _service.GetPublishedAsync(
+            page,
+            pageSize,
             cancellationToken);
 
-        if (article is null)
-        {
-            return NotFound();
-        }
-
-        return Ok(article);
+        return Ok(result);
     }
 
     [HttpPost]

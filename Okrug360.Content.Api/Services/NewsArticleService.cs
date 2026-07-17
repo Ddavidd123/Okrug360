@@ -22,15 +22,43 @@ public sealed class NewsArticleService : INewsArticleService
         return articles.ToResponseList();
     }
 
-    public async Task<NewsArticleResponse?> GetPublishedByIdAsync(
-        Guid id,
-        CancellationToken cancellationToken)
+    public async Task<PagedNewsArticlesResponse> GetPublishedAsync(
+     int page,
+     int pageSize,
+     CancellationToken cancellationToken)
     {
-        var article = await _repository.GetPublishedByIdAsync(
-            id,
+        if (page < 1)
+        {
+            page = 1;
+        }
+
+        if (pageSize < 1)
+        {
+            pageSize = 10;
+        }
+
+        if (pageSize > 50)
+        {
+            pageSize = 50;
+        }
+
+        var (articles, totalCount) = await _repository.GetPublishedAsync(
+            page,
+            pageSize,
             cancellationToken);
 
-        return article?.ToResponse();
+        var totalPages = totalCount == 0
+            ? 0
+            : (int)Math.Ceiling(totalCount / (double)pageSize);
+
+        return new PagedNewsArticlesResponse
+        {
+            Items = articles.ToResponseList(),
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount,
+            TotalPages = totalPages
+        };
     }
 
     public async Task<NewsArticleResponse> CreateAsync(

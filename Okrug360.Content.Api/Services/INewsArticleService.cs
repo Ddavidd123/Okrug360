@@ -7,9 +7,10 @@ public interface INewsArticleService
     Task<IReadOnlyList<NewsArticleResponse>> GetPublishedAsync(
         CancellationToken cancellationToken);
 
-    Task<NewsArticleResponse?> GetPublishedByIdAsync(
-        Guid id,
-        CancellationToken cancellationToken);
+    Task<PagedNewsArticlesResponse> GetPublishedAsync(
+    int page,
+    int pageSize,
+    CancellationToken cancellationToken);
 
     Task<NewsArticleResponse> CreateAsync(
         CreateNewsArticleRequest request,

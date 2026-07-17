@@ -25,15 +25,24 @@ public sealed class NewsArticleRepository : INewsArticleRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<NewsArticle?> GetPublishedByIdAsync(
-        Guid id,
-        CancellationToken cancellationToken)
+    public async Task<(IReadOnlyList<NewsArticle> Items, int TotalCount)> GetPublishedAsync(
+      int page,
+      int pageSize,
+      CancellationToken cancellationToken)
     {
-        return await _dbContext.NewsArticles
+        var query = _dbContext.NewsArticles
             .AsNoTracking()
-            .FirstOrDefaultAsync(
-                x => x.Id == id && x.IsPublished,
-                cancellationToken);
+            .Where(x => x.IsPublished);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var items = await query
+            .OrderByDescending(x => x.PublishedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+
+        return (items, totalCount);
     }
 
     public async Task<NewsArticle?> GetByIdAsync(
