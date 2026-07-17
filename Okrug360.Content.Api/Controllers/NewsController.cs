@@ -108,4 +108,21 @@ public sealed class NewsController : ControllerBase
 
         return Ok(article);
     }
+
+    [HttpPost("{id:guid}/archive")]
+    public async Task<ActionResult<NewsArticleResponse>> Archive(
+    Guid id,
+    CancellationToken cancellationToken)
+    {
+        var article = await _service.ArchiveAsync(
+            id,
+            cancellationToken);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(article);
+    }
 }

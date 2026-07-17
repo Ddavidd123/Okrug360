@@ -122,6 +122,26 @@ public sealed class NewsArticleService : INewsArticleService
         }
         return article.ToResponse();
     }
+    public async Task<NewsArticleResponse?> ArchiveAsync(
+      Guid id,
+      CancellationToken cancellationToken)
+    {
+        var article = await _repository.GetByIdAsync(
+            id,
+            cancellationToken);
 
+        if (article is null)
+        {
+            return null;
+        }
+
+        if (article.IsPublished)
+        {
+            article.IsPublished = false;
+            await _repository.UpdateAsync(article, cancellationToken);
+        }
+
+        return article.ToResponse();
+    }
 
 }

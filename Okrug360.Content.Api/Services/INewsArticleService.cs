@@ -27,4 +27,8 @@ public interface INewsArticleService
     Task<NewsArticleResponse?> PublishAsync(
     Guid id,
     CancellationToken cancellationToken);
+
+    Task<NewsArticleResponse?> ArchiveAsync(
+        Guid id,
+        CancellationToken cancellationToken);
 }
