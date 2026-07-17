@@ -4,10 +4,10 @@ namespace Okrug360.Content.Api.Services;
 
 public interface INewsArticleService
 {
-    Task<IReadOnlyList<NewsArticleResponse>> GetAllAsync(
+    Task<IReadOnlyList<NewsArticleResponse>> GetPublishedAsync(
         CancellationToken cancellationToken);
 
-    Task<NewsArticleResponse?> GetByIdAsync(
+    Task<NewsArticleResponse?> GetPublishedByIdAsync(
         Guid id,
         CancellationToken cancellationToken);
 

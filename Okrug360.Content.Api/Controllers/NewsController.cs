@@ -16,20 +16,20 @@ public sealed class NewsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<NewsArticleResponse>>> GetAll(
+    public async Task<ActionResult<IReadOnlyList<NewsArticleResponse>>> GetPublished(
         CancellationToken cancellationToken)
     {
-        var articles = await _service.GetAllAsync(cancellationToken);
+        var articles = await _service.GetPublishedAsync(cancellationToken);
 
         return Ok(articles);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<NewsArticleResponse>> GetById(
+    public async Task<ActionResult<NewsArticleResponse>> GetPublishedById(
         Guid id,
         CancellationToken cancellationToken)
     {
-        var article = await _service.GetByIdAsync(
+        var article = await _service.GetPublishedByIdAsync(
             id,
             cancellationToken);
 
@@ -51,7 +51,7 @@ public sealed class NewsController : ControllerBase
             cancellationToken);
 
         return CreatedAtAction(
-            nameof(GetById),
+            nameof(GetPublishedById),
             new { id = article.Id },
             article);
     }

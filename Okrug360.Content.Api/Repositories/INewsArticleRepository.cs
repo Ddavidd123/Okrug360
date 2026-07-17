@@ -1,14 +1,13 @@
 ﻿using Okrug360.Content.Api.Entities;
 
-
 namespace Okrug360.Content.Api.Repositories;
 
 public interface INewsArticleRepository
 {
-    Task<IReadOnlyList<NewsArticle>> GetAllAsync(
+    Task<IReadOnlyList<NewsArticle>> GetPublishedAsync(
         CancellationToken cancellationToken);
 
-    Task<NewsArticle?> GetByIdAsync(
+    Task<NewsArticle?> GetPublishedByIdAsync(
         Guid id,
         CancellationToken cancellationToken);
 

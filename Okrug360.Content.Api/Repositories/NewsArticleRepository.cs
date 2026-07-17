@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Okrug360.Content.Api.Data;
-
 using Okrug360.Content.Api.Entities;
 
 namespace Okrug360.Content.Api.Repositories;
@@ -14,23 +13,26 @@ public sealed class NewsArticleRepository : INewsArticleRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<NewsArticle>> GetAllAsync(
+    //cancellation token se koristi zbog stednje resursa
+    //akko korisnik zatvori stranicu, asp net - prekini izvrsavanje
+    public async Task<IReadOnlyList<NewsArticle>> GetPublishedAsync(
         CancellationToken cancellationToken)
     {
         return await _dbContext.NewsArticles
             .AsNoTracking()
-            .OrderByDescending(x => x.CreatedAt)
+            .Where(x => x.IsPublished)
+            .OrderByDescending(x => x.PublishedAt)
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<NewsArticle?> GetByIdAsync(
+    public async Task<NewsArticle?> GetPublishedByIdAsync(
         Guid id,
         CancellationToken cancellationToken)
     {
         return await _dbContext.NewsArticles
             .AsNoTracking()
             .FirstOrDefaultAsync(
-                x => x.Id == id,
+                x => x.Id == id && x.IsPublished,
                 cancellationToken);
     }
 

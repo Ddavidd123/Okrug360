@@ -14,19 +14,21 @@ public sealed class NewsArticleService : INewsArticleService
         _repository = repository;
     }
 
-    public async Task<IReadOnlyList<NewsArticleResponse>> GetAllAsync(
+    public async Task<IReadOnlyList<NewsArticleResponse>> GetPublishedAsync(
         CancellationToken cancellationToken)
     {
-        var articles = await _repository.GetAllAsync(cancellationToken);
+        var articles = await _repository.GetPublishedAsync(cancellationToken);
 
         return articles.ToResponseList();
     }
 
-    public async Task<NewsArticleResponse?> GetByIdAsync(
+    public async Task<NewsArticleResponse?> GetPublishedByIdAsync(
         Guid id,
         CancellationToken cancellationToken)
     {
-        var article = await _repository.GetByIdAsync(id, cancellationToken);
+        var article = await _repository.GetPublishedByIdAsync(
+            id,
+            cancellationToken);
 
         return article?.ToResponse();
     }
