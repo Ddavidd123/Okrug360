@@ -28,10 +28,14 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHealthChecks()
-    .AddSqlServer(
+var healthChecks = builder.Services.AddHealthChecks();
+
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    healthChecks.AddSqlServer(
         connectionString,
         name: "content-database");
+}
 
 
 var app = builder.Build();
@@ -53,3 +57,7 @@ app.MapControllers();
 app.MapHealthChecks("/health");
 
 app.Run();
+
+public partial class Program
+{
+}
