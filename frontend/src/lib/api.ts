@@ -1,4 +1,4 @@
-import type { PagedNewsArticles } from "@/types/news";
+import type { NewsArticle, PagedNewsArticles } from "@/types/news";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,6 +16,24 @@ export async function getPublishedNews(
       next: { revalidate: 30 },
     },
   );
+
+  if (!response.ok) {
+    throw new Error(`API greska: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export async function getPublishedNewsById(
+  id: string,
+): Promise<NewsArticle | null> {
+  const response = await fetch(`${apiUrl}/api/news/${id}`, {
+    next: { revalidate: 30 },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
 
   if (!response.ok) {
     throw new Error(`API greska: ${response.status}`);

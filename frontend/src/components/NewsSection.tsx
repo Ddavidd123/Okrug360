@@ -1,46 +1,7 @@
 import Link from "next/link";
+import { NewsCard } from "@/components/NewsCard";
 import { getPublishedNews } from "@/lib/api";
 import type { NewsArticle } from "@/types/news";
-
-function formatDate(value: string | null) {
-  if (!value) {
-    return "";
-  }
-
-  return new Intl.DateTimeFormat("sr-Latn-RS", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(value));
-}
-
-function NewsCard({ article }: { article: NewsArticle }) {
-  return (
-    <article className="flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-[0_8px_24px_rgba(16,42,67,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(16,42,67,0.1)]">
-      <time
-        className="text-sm text-muted"
-        dateTime={article.publishedAt ?? undefined}
-      >
-        {formatDate(article.publishedAt)}
-      </time>
-
-      <h3 className="mt-3 font-[family-name:var(--font-fraunces)] text-xl leading-snug text-brand">
-        {article.title}
-      </h3>
-
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
-        {article.summary}
-      </p>
-
-      <Link
-        href={`/vesti/${article.id}`}
-        className="mt-6 text-sm font-semibold text-accent hover:text-brand"
-      >
-        Pročitaj više →
-      </Link>
-    </article>
-  );
-}
 
 export async function NewsSection() {
   let articles: NewsArticle[] = [];
@@ -86,8 +47,7 @@ export async function NewsSection() {
 
         {!errorMessage && articles.length === 0 && (
           <div className="rounded-2xl border border-border bg-surface px-6 py-8 text-muted">
-            Još nema objavljenih vesti. Kreiraj jednu preko Swaggera sa{" "}
-            <code className="text-brand">publishImmediately: true</code>.
+            Još nema objavljenih vesti.
           </div>
         )}
 
