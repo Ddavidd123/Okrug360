@@ -15,6 +15,8 @@ namespace Okrug360.Places.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //ovo kaze da sledeca podesavanja vaze za model
+            //Place
             modelBuilder.Entity<Place>(entity =>
             {
                 entity.Property(x => x.Name).HasMaxLength(200);
