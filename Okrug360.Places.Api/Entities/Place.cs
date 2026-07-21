@@ -20,7 +20,7 @@ namespace Okrug360.Places.Api.Entities
 
         public string? ImageUrl { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get;set; }
 
