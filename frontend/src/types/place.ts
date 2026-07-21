@@ -2,6 +2,7 @@ export type PlaceCategory =
   | "Restaurant"
   | "Cafe"
   | "Monastery"
+  | "Monestery"
   | "Museum"
   | "Park"
   | "CulturalSite"

@@ -47,18 +47,21 @@ export async function getPlaces(
   return response.json();
 }
 
-export async function getPlaceById(id: string): Promise<Place> {
+export async function getPlaceById(id: string): Promise<Place | null> {
   const response = await fetch(`${placesApiUrl}/api/places/${id}`, {
     next: { revalidate: 60 },
   });
 
+  if (response.status === 404) {
+    return null;
+  }
+
   if (!response.ok) {
-    throw new Error("Mesto nije pronađeno.");
+    throw new Error("Neuspešno učitavanje mesta.");
   }
 
   return response.json();
 }
-
 export async function getPlaceMapMarkers(
   params: Pick<GetPlacesParams, "city" | "category"> = {}
 ): Promise<PlaceMapMarker[]> {
