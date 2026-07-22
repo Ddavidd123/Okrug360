@@ -36,7 +36,7 @@ export default async function MestaPage({ searchParams }: MestaPageProps) {
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
           Otkrij okrug
         </p>
-        <h1 className="font-[family-name:var(--font-fraunces)] text-4xl tracking-tight text-brand">
+        <h1 className="font-(family-name:--font-fraunces) text-4xl tracking-tight text-brand">
           Mesta
         </h1>
         <p className="mt-3 max-w-2xl text-muted">

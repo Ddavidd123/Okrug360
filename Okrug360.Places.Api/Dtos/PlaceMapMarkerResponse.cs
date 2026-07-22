@@ -13,4 +13,6 @@ public sealed class PlaceMapMarkerResponse
     public double Latitude { get; init; }
 
     public double Longitude { get; init; }
+
+    public string? ImageUrl { get; init; }
 }

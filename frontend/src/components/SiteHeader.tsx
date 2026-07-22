@@ -8,7 +8,7 @@ export function SiteHeader() {
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold tracking-tight text-white">
             360
           </span>
-          <span className="font-[family-name:var(--font-fraunces)] text-2xl tracking-tight">
+          <span className="font-(family-name:--font-fraunces) text-2xl tracking-tight">
             Okrug360
           </span>
         </Link>

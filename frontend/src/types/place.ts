@@ -31,6 +31,7 @@ export interface PlaceMapMarker {
   category: PlaceCategory;
   latitude: number;
   longitude: number;
+  imageUrl?: string | null;
 }
 
 export interface PagedPlacesResponse {

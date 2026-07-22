@@ -12,7 +12,7 @@ export function Hero() {
         className="object-cover object-[center_40%]"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/85 via-brand/55 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-brand-deep/85 via-brand/55 to-transparent" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-28">
         <div className="max-w-xl text-white">
@@ -20,11 +20,11 @@ export function Hero() {
             Pčinjski okrug
           </p>
 
-          <h1 className="font-[family-name:var(--font-fraunces)] text-5xl leading-tight tracking-tight sm:text-6xl">
+          <h1 className="font-(family-name:--font-fraunces) text-5xl leading-tight tracking-tight sm:text-6xl">
             Okrug360
           </h1>
 
-          <p className="mt-4 font-[family-name:var(--font-fraunces)] text-2xl text-white/95 sm:text-3xl">
+          <p className="mt-4 font-(family-name:--font-fraunces) text-2xl text-white/95 sm:text-3xl">
             Pitaj. Pronađi. Učestvuj.
           </p>
 

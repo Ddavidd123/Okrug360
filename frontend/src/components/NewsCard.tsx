@@ -12,7 +12,7 @@ export function NewsCard({ article }: { article: NewsArticle }) {
         {formatDate(article.publishedAt)}
       </time>
 
-      <h3 className="mt-3 font-[family-name:var(--font-fraunces)] text-xl leading-snug text-brand">
+      <h3 className="mt-3 font-(family-name:--font-fraunces) text-xl leading-snug text-brand">
         <Link href={`/vesti/${article.id}`} className="hover:text-accent">
           {article.title}
         </Link>

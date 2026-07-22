@@ -9,7 +9,7 @@ export function PlaceCard({ place }: { place: Place }) {
         {formatPlaceCategory(place.category)}
       </span>
 
-      <h3 className="mt-4 font-[family-name:var(--font-fraunces)] text-xl leading-snug text-brand">
+      <h3 className="mt-4 font-(family-name:--font-fraunces) text-xl leading-snug text-brand">
         <Link href={`/mesta/${place.id}`} className="hover:text-accent">
           {place.name}
         </Link>

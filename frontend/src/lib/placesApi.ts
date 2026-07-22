@@ -47,6 +47,35 @@ export async function getPlaces(
   return response.json();
 }
 
+/** Fresh published places for the map explorer (no cache). */
+export async function getPlacesForMap(
+  params: Pick<GetPlacesParams, "city" | "category"> = {},
+): Promise<Place[]> {
+  const searchParams = new URLSearchParams();
+  searchParams.set("page", "1");
+  searchParams.set("pageSize", "100");
+
+  if (params.city) {
+    searchParams.set("city", params.city);
+  }
+
+  if (params.category) {
+    searchParams.set("category", params.category);
+  }
+
+  const response = await fetch(
+    `${placesApiUrl}/api/places?${searchParams.toString()}`,
+    { cache: "no-store" },
+  );
+
+  if (!response.ok) {
+    throw new Error("Neuspešno učitavanje mape mesta.");
+  }
+
+  const data = (await response.json()) as PagedPlacesResponse;
+  return data.items;
+}
+
 export async function getPlaceById(id: string): Promise<Place | null> {
   const response = await fetch(`${placesApiUrl}/api/places/${id}`, {
     next: { revalidate: 60 },
@@ -81,7 +110,7 @@ export async function getPlaceMapMarkers(
     : `${placesApiUrl}/api/places/map`;
 
   const response = await fetch(url, {
-    next: { revalidate: 60 },
+    cache: "no-store",
   });
 
   if (!response.ok) {

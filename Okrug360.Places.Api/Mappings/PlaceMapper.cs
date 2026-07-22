@@ -32,7 +32,8 @@ namespace Okrug360.Places.Api.Mappings
                 Name = place.Name,
                 Category = place.Category,
                 Latitude = place.Latitude,
-                Longitude = place.Longitude
+                Longitude = place.Longitude,
+                ImageUrl = place.ImageUrl
             };
         }
 

@@ -23,7 +23,7 @@ export async function NewsSection() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
               Informacije
             </p>
-            <h2 className="font-[family-name:var(--font-fraunces)] text-3xl tracking-tight text-brand sm:text-4xl">
+            <h2 className="font-(family-name:--font-fraunces) text-3xl tracking-tight text-brand sm:text-4xl">
               Najnovije vesti
             </h2>
             <p className="mt-3 max-w-xl text-muted">

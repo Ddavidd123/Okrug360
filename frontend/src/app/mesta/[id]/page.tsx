@@ -46,7 +46,7 @@ export default async function MestoDetailPage({ params }: MestoDetailPageProps) 
           {formatPlaceCategory(place.category)}
         </span>
 
-        <h1 className="mt-4 font-[family-name:var(--font-fraunces)] text-4xl leading-tight tracking-tight text-brand sm:text-5xl">
+        <h1 className="mt-4 font-(family-name:--font-fraunces) text-4xl leading-tight tracking-tight text-brand sm:text-5xl">
           {place.name}
         </h1>
 

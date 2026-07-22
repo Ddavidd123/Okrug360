@@ -43,7 +43,7 @@ export default async function VestDetailPage({ params }: VestDetailPageProps) {
           </time>
         </p>
 
-        <h1 className="mt-3 font-[family-name:var(--font-fraunces)] text-4xl leading-tight tracking-tight text-brand sm:text-5xl">
+        <h1 className="mt-3 font-(family-name:--font-fraunces) text-4xl leading-tight tracking-tight text-brand sm:text-5xl">
           {article.title}
         </h1>
 
